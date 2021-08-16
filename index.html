@@ -19,105 +19,161 @@
     <div id="wrap">
         <span id="backtop" class="waves-effect waves-button"><i class="fa fa-angle-up"></i></span>
         <header>
-             <!-- sidebar navbar -->
-            <a id="toggle-nav" class="btn btn-primary" href="#"><span>导航</span></a>
-            <nav id="site-navigation" class="sidebar no-user-select" role="navigation">
-            </nav>
+           <!-- sidebar navbar -->
+           <a id="toggle-nav" class="btn btn-primary" href="javascript:nav_togale();"><span>导航</span></a>
+           <script type="text/javascript">
+            function nav_togale(){
 
-            <!-- Fixed navbar -->
-            <nav id="navbar" class="navbar navbar-expand-md navbar-color fixed-top no-user-select navbar-lg">
-                <div class="container-fluid">
-                    <a class="navbar-brand " href="./"><img src="./logo.png" alt="Logo" height="40"></a>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item"><a class="nav-link" href="./#">首页</a></li>
-                            <li class="nav-item"><a class="nav-link" href="./#">牵引计算</a></li>
-                            <li class="nav-item"><a class="nav-link" href="./#">其他项目</a></li>
-                        </ul>
-                    </div>
+                var wrap = document.querySelector("#wrap")
+                if(wrap.getAttribute("class") != "display-nav"){
+                    wrap.setAttribute("class",'display-nav')
+                }else{
+                    wrap.setAttribute("class",'')
+                }
+            }
+        </script>
+        <nav id="site-navigation" class="sidebar no-user-select" role="navigation">
+            <div id="nav">
+       <!-- <div class="author navbar-header">
+            <a href="https://iao.su/about.html">
+                <img src="https://iao.su/logo.png" alt="Avatar" width="100" height="100"/>
+            </a>
+        </div> --><br>
+
+        <ul id="menu-menu-1" class="menu navbar-nav" data-content="406">
+
+            <li>
+                <a class="slide-toggle">牵引计算</a>
+                <div class="category-list"> <!-- hide -->
+                    <ul class="list">
+                        <li class="category-level-0 category-parent">
+                            <a href="#">类别1</a>
+                        </li>
+                        <li class="category-level-0 category-parent">
+                            <a href="#">类别2</a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>    
-        </header>
+            </li>
 
-        <div id="body">
-        <div class="container">
-            <div class="row">
-                <div id="index" role="main">
- <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
-                    <article itemscope="" itemtype="http://schema.org/BlogPosting" class="">
-                        <a href="#">
-                            <div class="post-card">
-                                <div class="blog-background" style="background-image: url('https://tvax4.sinaimg.cn/large/6f8a2832gy1gdkra3exppj21hc0xcdjl.jpg');"></div>
-                                
-                                <div class="post-card-mask">
-                                    <div class="post-card-container">
-                                        <h2 class="post-card-title" itemprop="headline">标题 标题 标题</h2>
-                                        <div class="post-card-info">
-                                            <span>副标题  副标题</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </article>
- <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
-                    <article itemscope="" itemtype="http://schema.org/BlogPosting" class="">
-                        <a href="#">
-                            <div class="post-card">
-                                <div class="blog-background" style="background-image: url('https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrnek6jcj21kw11zqdo.jpg');"></div>
-                                
-                                <div class="post-card-mask">
-                                    <div class="post-card-container">
-                                        <h2 class="post-card-title" itemprop="headline">标题 标题 标题</h2>
-                                        <div class="post-card-info">
-                                            <span>副标题  副标题</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </article>
- <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
-                    <article itemscope="" itemtype="http://schema.org/BlogPosting" class="">
-                        <a href="#">
-                            <div class="post-card">
-                                <div class="blog-background" style="background-image: url('https://tvax3.sinaimg.cn/large/6f8a2832gy1goxetde86tj21hc0u0qc4.jpg');"></div>
-                                
-                                <div class="post-card-mask">
-                                    <div class="post-card-container">
-                                        <h2 class="post-card-title" itemprop="headline">标题 标题 标题</h2>
-                                        <div class="post-card-info">
-                                            <span>副标题  副标题</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </article>
- <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
-
+            <li>
+                <a class="slide-toggle">其他项目</a>
+                <div class="category-list"> <!-- hide -->
+                    <ul class="list">
+                        <li class="category-level-0 category-parent">
+                            <a href="#">类别1</a>
+                        </li>
+                        <li class="category-level-0 category-parent">
+                            <a href="#">类别2</a>
+                        </li>
+                        <li class="category-level-0 category-parent">
+                            <a href="#">类别3</a>
+                        </li>
+                        <li class="category-level-0 category-parent">
+                            <a href="#">类别4</a>
+                        </li>
+                    </ul>
                 </div>
-            </div><!-- end #body -->
-        </div><!-- end #wrap -->
-        <footer id="footer" role="contentinfo">
-            <div class="container" data-index="179">
-                <p>个性化实验 ~ 2021</p>
+            </li>
+
+
+        </div>
+    </nav>
+
+    <!-- Fixed navbar -->
+    <nav id="navbar" class="navbar navbar-expand-md navbar-color fixed-top no-user-select navbar-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand " href="./"><img src="./logo.png" alt="Logo" height="40"></a>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="./#">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./#">牵引计算</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./#">其他项目</a></li>
+                </ul>
             </div>
-        </footer>
+        </div>
+    </nav>    
+</header>
+
+<div id="body">
+    <div class="container">
+        <div class="row">
+            <div id="index" role="main">
+               <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
+               <article itemscope="" itemtype="http://schema.org/BlogPosting" class="">
+                <a href="#">
+                    <div class="post-card">
+                        <div class="blog-background" style="background-image: url('https://tvax4.sinaimg.cn/large/6f8a2832gy1gdkra3exppj21hc0xcdjl.jpg');"></div>
+
+                        <div class="post-card-mask">
+                            <div class="post-card-container">
+                                <h2 class="post-card-title" itemprop="headline">标题 标题 标题</h2>
+                                <div class="post-card-info">
+                                    <span>副标题  副标题</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
+            <article itemscope="" itemtype="http://schema.org/BlogPosting" class="">
+                <a href="#">
+                    <div class="post-card">
+                        <div class="blog-background" style="background-image: url('https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrnek6jcj21kw11zqdo.jpg');"></div>
+
+                        <div class="post-card-mask">
+                            <div class="post-card-container">
+                                <h2 class="post-card-title" itemprop="headline">标题 标题 标题</h2>
+                                <div class="post-card-info">
+                                    <span>副标题  副标题</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
+            <article itemscope="" itemtype="http://schema.org/BlogPosting" class="">
+                <a href="#">
+                    <div class="post-card">
+                        <div class="blog-background" style="background-image: url('https://tvax3.sinaimg.cn/large/6f8a2832gy1goxetde86tj21hc0u0qc4.jpg');"></div>
+
+                        <div class="post-card-mask">
+                            <div class="post-card-container">
+                                <h2 class="post-card-title" itemprop="headline">标题 标题 标题</h2>
+                                <div class="post-card-info">
+                                    <span>副标题  副标题</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </article>
+            <!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE--><!-- ARTICLE-->
+
+        </div>
+    </div><!-- end #body -->
+</div><!-- end #wrap -->
+<footer id="footer" role="contentinfo">
+    <div class="container" data-index="179">
+        <p>个性化实验 ~ 2021</p>
+    </div>
+</footer>
 
 <script type="text/javascript">
     var imgs = [
     'https://tvax4.sinaimg.cn/large/6f8a2832gy1gdkra3exppj21hc0xcdjl.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gy1goxetde86tj21hc0u0qc4.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrnek6jcj21kw11zqdo.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghi8ecxpkaj21io0z8qns.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrcdgm63j22yo1o07d4.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrc788hij21hc0u0h80.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gw1f7s1jgrunkj21kw0w0neo.jpg',
-'https://tvax4.sinaimg.cn/large/6f8a2832gy1ge0k05p888j21hc0u0wl5.jpg'
+    'https://tvax4.sinaimg.cn/large/6f8a2832gy1goxetde86tj21hc0u0qc4.jpg',
+    'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrnek6jcj21kw11zqdo.jpg',
+    'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghi8ecxpkaj21io0z8qns.jpg',
+    'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrcdgm63j22yo1o07d4.jpg',
+    'https://tvax4.sinaimg.cn/large/6f8a2832gy1ghkrc788hij21hc0u0h80.jpg',
+    'https://tvax4.sinaimg.cn/large/6f8a2832gw1f7s1jgrunkj21kw0w0neo.jpg',
+    'https://tvax4.sinaimg.cn/large/6f8a2832gy1ge0k05p888j21hc0u0wl5.jpg'
     ]
     for(i in document.querySelectorAll(".blog-background")){
         document.querySelectorAll(".blog-background")[i].style.backgroundImage = "url("+imgs[i]+")"
     }
 </script>
-    </body></html>
+</body></html>
