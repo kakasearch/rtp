@@ -1,8 +1,8 @@
 /*! Mirages.css v7.10.3.DEV2(20210228A) */
 @font-face {
     font-family: 'FontAwesome';
-    src: url("./fontawesome-webfont.eot?v=4.7.0");
-    src: url("./fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"),url("./fontawesome-webfont.woff2?v=4.7.0") format("woff2"),url("./fontawesome-webfont.woff?v=4.7.0") format("woff"),url("./fontawesome-webfont.ttf?v=4.7.0") format("truetype"),url("./fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+    src: url("//assets/fontawesome-webfont.eot?v=4.7.0");
+    src: url("//assets/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"),url("//assets/fontawesome-webfont.woff2?v=4.7.0") format("woff2"),url("./fontawesome-webfont.woff?v=4.7.0") format("woff"),url("./fontawesome-webfont.ttf?v=4.7.0") format("truetype"),url("./fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
     font-weight: normal;
     font-style: normal
 }
