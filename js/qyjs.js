@@ -191,25 +191,72 @@ function check_cgqd(F_c,i_JL,w_0_pp){
 //结果全部向下取到10t
 log("tips:结果全部向下取到10t\n")
 //牵引质量计算 例2-2 p84
-var jiche_type = "ss_3"                                 //input
-var cheliang_type = "goods_heavy_roll"                  //input
-var i_xORi_JL = 9                                       //input
-var lambdas = null //多机牵引时的lambdas[]                //input
-qyxn_parms_object = qyxn_parms[jiche_type]
-var v = qyxn_parms_object.V_jmin
-var P = qyxn_parms_object.P //p 还是p_mu   p_mu需要用户给 //input
-var w_0_p = cal_w_0(parms_w_0_p[jiche_type],v)
-var w_0_pp = cal_w_0(parms_w_0_pp[cheliang_type],v)
-G = cal_qyzl(qyxn_parms_object,P,w_0_p,w_0_pp,i_xORi_JL,lambdas)
-log('牵引质量为(t)：',G)
+var jiche_type
+var cheliang_type
+var i_xORi_JL
+var lambdas
+var qyxn_parms_object
+var v
+var P
+var w_0_p
+var w_0_pp
+var G
+function get_G(){
+    jiche_type = document.querySelector("#jiche_type").value                                //input
+    cheliang_type = document.querySelector(".cheliang_type:checked").value                 //input
+    i_xORi_JL = parseFloat(document.querySelector("#i_x").value)                                      //input
+    if(jiche_type && cheliang_type &&i_xORi_JL){
+        lambdas = null //多机牵引时的lambdas[]                //input
+        qyxn_parms_object = qyxn_parms[jiche_type]
+        v = qyxn_parms_object.V_jmin
+        P = qyxn_parms_object.P //p 还是p_mu   p_mu需要用户给 //input
+        w_0_p = cal_w_0(parms_w_0_p[jiche_type],v)
+        w_0_pp = cal_w_0(parms_w_0_pp[cheliang_type],v)
+        G = cal_qyzl(qyxn_parms_object,P,w_0_p,w_0_pp,i_xORi_JL,lambdas)
+        log('牵引质量为(t)：',G)
+        document.querySelector("#G").value = String(G)
+    }else{
+        alert("数据输入不完整！")
+    }
 
+    
+}
+
+
+function check_G(){
+    if(!G){
+        alert("请先计算最大牵引质量")
+        return
+    }
 //启动验算 例2-4 p84
-i_q =1.83                                               //input
-check_qi_dong(qyxn_parms_object, P , i_q , G)
+results = []
+let i_q = parseFloat(document.querySelector("#i_q").value)                                  //input
+if (i_q) {
+    if (check_qi_dong(qyxn_parms_object, P , i_q , G)) {
+        results.push("<p style='color: green;' >启动检算通过！</p>")
+    } else {
+        results.push("<p  style='color: red;' >启动检算未通过！</p>")
+    }
+}
+
 //例2-5 p85
-L_yx  = 650                                             //input
-check_dfxyxc(qyxn_parms_object,L_yx)//L_a,N_J 此处采用默认
-//例2-6 p85
-F_c  = 562500    //需要由车钩型号转化得到                   //input
-i_JL = 18.4                                             //input
-check_cgqd(F_c,i_JL,w_0_pp)
+let L_yx  = parseFloat(document.querySelector("#L_yx").value)                                        //input
+if (L_yx) {
+    if (check_dfxyxc(qyxn_parms_object,L_yx)) {
+        results.push("<p  style='color: green;' >到发线有效长检算通过！</p>")
+    } else {
+        results.push("<p  style='color: red;' >到发线有效长检算未通过！</p>")
+    }
+}
+
+// //例2-6 p85
+// var F_c  = 562500    //需要由车钩型号转化得到                   //input
+// var i_JL = 18.4                                             //input
+// check_cgqd(F_c,i_JL,w_0_pp)
+    if((!L_yx) && (!i_q)){
+        alert("未输入检算条件！")
+        return
+    }
+document.querySelector("#jsjg").innerHTML = results.join("\n")
+
+}

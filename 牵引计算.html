@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>牵引计算</title>
+    <script src="js/qyjs.js"></script>
+    <noscript><p>对不起，您的浏览器版本不支持本工具，请升级浏览器或者使用Chrom等主流浏览器，谢谢合作</p></noscript>
+</head>
+<body>
+    <h1>欢迎使用本工具</h1>
+    <h6>请输入参数并选择相关车型后点击计算按钮</h6>
+    <form name="牵引质量计算">
+        <!-- 机车类型选择 -->
+        <div> 
+           <label for="jiche_type">机车型号：</label> 
+           <select name="jiche_type" id="jiche_type">
+               <option value="ss_1">韶山1型</option>
+               <option value="ss_3" selected>韶山3型</option>
+               <option value="ss_4">韶山4型</option>
+               <option value="ss_7">韶山7型</option>
+               <option value="ss_8">韶山8型</option>
+           </select> 
+           
+        </div><br>
+        <!-- 货车轴承类型选择 -->   
+            <label for="parms_w_0_pp"> 货车轴承类型：</label>
+            <input type="radio" class="cheliang_type" name="cheliang_type" value="goods_heavy_roll" id="parms_w_0_pp1" checked><label for="parms_w_0_pp1"> 滚动轴承</label>
+            <input type="radio" class="cheliang_type" name="cheliang_type" value="goods_heavy_slide" id="parms_w_0_pp2"> <label for="parms_w_0_pp2">滑动轴承</label> 
+            <input type="radio" class="cheliang_type" name="cheliang_type" value="goods_empty" id="parms_w_0_pp3"><label for="parms_w_0_pp3"> 空车</label>
+        <!-- 限制坡度输入 -->
+        <div><label for="i_x">限制坡度</label>
+            <input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="i_x" placeholder="单位为‰" id="i_x">
+        </div>
+        <!-- 显示牵引质量计算结果 -->
+        <div><label for="G">牵引质量</label>
+            <input type="text" oninput="value=value.replace(/[^\d.]/g,'')" name="G"  placeholder="单位为t" id="G">
+            
+        </div>
+         <!-- 牵引质量计算按钮 -->
+         <div>
+            <input type="button" value="计算最大牵引质量" onclick="get_G()">  
+            <input type="reset" value="重新输入">
+        </div><br>
+        <!-- 起动检算 -->
+        <div>
+            <p>启动检算：</p>
+            <label for="i_q">起动地点加算坡度：</label>
+            <input type="text" oninput="value=value.replace(/[^\d.]/g,'')" name="i_q" placeholder="单位为‰" id="i_q">
+        </div><br/>
+        <!-- 到发线有效长检算 -->
+        <div>
+            <p>到发线有效长检算：</p>
+            <label for="L_yx">到发线有效长度：</label>
+            <input type="text" oninput="value=value.replace(/[^\d.]/g,'')" name="L_yx" placeholder="单位为m" id="L_yx">
+        </div><br/>
+            <input type="button" value="开始检算" onclick="check_G()">  
+            <input type="reset" value="重新输入">
+            <div id="jsjg"></div>
+    </form>
+    <script type="text/javascript" src="./js/qyjs.js"></script>
+</body>
