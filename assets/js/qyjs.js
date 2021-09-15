@@ -151,7 +151,7 @@ function check_qi_dong(qyxn_parms_object, P , i_q , G){
     let F_q = qyxn_parms_object.F_q *1000 //转单位为N
     let G_q = (lambda_y*F_q - P * (w_q_p + i_q) * g) / ((w_q_pp+i_q)*g);
     G_q = parseInt(G_q/10)*10//舍取为10t的倍数
-    log("启动条件下最大牵引质量(t):",G_q)
+    results.push("<p>启动条件下最大牵引质量(t):"+G_q+"</p>")
     return is_biger(G_q,G,'启动检算');
 }
 function check_dfxyxc(qyxn_parms_object,L_yx,L_a_input,N_J_input){
@@ -168,7 +168,7 @@ function check_dfxyxc(qyxn_parms_object,L_yx,L_a_input,N_J_input){
     const q = 5.677
     let G_yx = (L_yx - L_a -N_J*L_J)*q
     G_yx = parseInt(G_yx/10)*10//舍取为10t的倍数  
-    log("到发线条件下最大牵引质量(t):",G_yx)
+    results.push("<p>到发线条件下最大牵引质量(t):"+G_yx+"</p>")
     return is_biger(G_yx,G,'到发线有效长检算');
 }
 
@@ -201,6 +201,7 @@ var P
 var w_0_p
 var w_0_pp
 var G
+var results = []
 function get_G(){
     jiche_type = document.querySelector("#jiche_type").value                                //input
     cheliang_type = document.querySelector(".cheliang_type:checked").value                 //input
@@ -224,12 +225,12 @@ function get_G(){
 
 
 function check_G(){
+    results = []
     if(!G){
         alert("请先计算最大牵引质量")
         return
     }
 //启动验算 例2-4 p84
-results = []
 let i_q = parseFloat(document.querySelector("#i_q").value)                                  //input
 if (i_q) {
     if (check_qi_dong(qyxn_parms_object, P , i_q , G)) {
@@ -256,6 +257,8 @@ if (L_yx) {
     if((!L_yx) && (!i_q)){
         alert("未输入检算条件！")
         return
+    }else{
+        results.push("<p>计算结果仅供参考</p>")
     }
 document.querySelector("#jsjg").innerHTML = results.join("\n")
 
