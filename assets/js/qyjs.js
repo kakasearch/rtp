@@ -257,6 +257,8 @@ if (L_yx) {
     if((!L_yx) && (!i_q)){
         alert("未输入检算条件！")
         return
+    }else{
+        results.push("<p>计算结果仅供参考</p>")
     }
 document.querySelector("#jsjg").innerHTML = results.join("\n")
 
