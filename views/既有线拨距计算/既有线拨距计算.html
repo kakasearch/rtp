@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>既有线拨距计算</title>
+    <script src=""></script>
+    <noscript><p>对不起，您的浏览器版本不支持本工具，请升级浏览器或者使用Chrome等主流浏览器，谢谢合作</p></noscript>
+</head>
+<body>
+    <h1>欢迎使用本工具</h1>
+    <h6>请输入起点和终点里程后点击继续输入按钮</h6>
+    <form name="既有线拨距计算">
+        <!-- 输入起点里程 -->
+        <div><label for="QD_K">起点：K</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="QD_K"  id="QD_K">
+        <label for="QD">+</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="QD"  id="QD"></div>
+        <!-- 输入终点里程 -->
+        <div><label for="ZD_K">终点：K</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="ZD_K"  id="ZD_K">
+        <label for="ZD">+</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="ZD"  id="ZD"></div>
+        <div><input type="button" value="继续输入" onclick="input_faiz()"></div>
+        <!-- 生成faiz的输入框 -->
+        <script>
+            function input_faiz()
+            QD_K = document.querySelector("#QD_K").value                                //input
+            ZD_K = document.querySelector("#ZD_K").value                                //input
+            QD = document.querySelector("#QD").value                                //input
+            ZD = document.querySelector("#ZD").value                                //input
+           var number_faiz = ZD + ZD_K*1000 - (QD_K*1000 + QD )
+
+
+        </script>
+
+    </form>
+
+    
+</body>
+</html>
