@@ -10,27 +10,19 @@
 </head>
 <body>
     <h1>欢迎使用本工具</h1>
-    <h6>请输入起点和终点里程后点击继续输入按钮</h6>
+    <h6>请下载表格模板，填写数据后上传，后台将为您输出计算结果</h6>
+    <a href="111.xlsx" target="_blank">点击下载表格模板</a>
     <form name="既有线拨距计算">
-        <!-- 输入起点里程 -->
-        <div><label for="QD_K">起点：K</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="QD_K"  id="QD_K">
-        <label for="QD">+</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="QD"  id="QD"></div>
-        <!-- 输入终点里程 -->
-        <div><label for="ZD_K">终点：K</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="ZD_K"  id="ZD_K">
-        <label for="ZD">+</label><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" name="ZD"  id="ZD"></div>
-        <div><input type="button" value="继续输入" onclick="input_faiz()"></div>
-        <!-- 生成faiz的输入框 -->
-        <script>
-            function input_faiz()
-            QD_K = document.querySelector("#QD_K").value                                //input
-            ZD_K = document.querySelector("#ZD_K").value                                //input
-            QD = document.querySelector("#QD").value                                //input
-            ZD = document.querySelector("#ZD").value                                //input
-           var number_faiz = ZD + ZD_K*1000 - (QD_K*1000 + QD )
-
-
-        </script>
-
+     <!-- 输出设计曲线半径 -->
+     <div><label for="R_sj">设计曲线半径：</label>
+        <input type="text" oninput="value=value.replace(/[^\d.]/g,'')" name="R_sj"  placeholder="单位为m" id="R_sj">
+     </div>
+     <!-- 输入缓和曲线长度 -->
+     <div><label for="l_0">缓和曲线长度：</label>
+        <input type="text" oninput="value=value.replace(/[^\d.]/g,'')" name="l_0"  placeholder="单位为m" id="l_0">
+     </div>
+     <input type="file"><br>
+     <input type="button" value="提交数据">
     </form>
 
     
