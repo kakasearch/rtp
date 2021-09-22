@@ -15,6 +15,13 @@ var xlsx = XLSX
 var xlsx_style = XLSXX
 var workbook
 var beizhu
+var QZ_point
+var ZY_point
+var ZH_point
+var HY_point
+var YZ_point
+var HZ_point
+var YH_point
 //test
 // const R_S = 500 // input
 // const l_0 = 100 // inpput
@@ -41,6 +48,14 @@ document.getElementById('file').addEventListener('change', function(e) {
                 var htmlstr = xlsx.write(workbook, {sheet:"Sheet1", type:'string', bookType:'html'});
                 document.getElementById('result').innerHTML = htmlstr;
                 document.getElementById('result').innerHTML += `<p>${beizhu}</p>`
+                for (i of "IKO") {
+                    d = document.querySelector("#sjs-"+i+"2")
+                    d.innerHTML = d.getAttribute('v')
+                }
+                if(! ZH_point.loc){
+                    alert("您输入的参数不合适，输出结果错误的可能性很大")
+                }
+
             // }catch(e){
                 // console.log(e)
                 // alert("未知错误，请检查上传的文档是否与模板一致")
@@ -203,13 +218,13 @@ function licheng_to_str(argument) {
 //计算主点里程
 const alpha = parseFloat((result[result.length-1]["beita"]).toFixed(7))
 const X = result[result.length-2]["EJ"]/alpha
-var QZ_point = { "data": result[result.length-2]["licheng"]["total"]-X,"type":"QZ"}
-var ZY_point = { "data": QZ_point["data"] - R_S*alpha/2,"type":"ZY"}
-var ZH_point = { "data": ZY_point["data"] - l_0/2,"type":"ZH"}
-var HY_point = { "data": ZY_point["data"] + l_0/2,"type":"HY"}
-var YZ_point = { "data": 2*QZ_point["data"] - ZY_point["data"],"type":"YZ"}
-var HZ_point = { "data": 2*QZ_point["data"] - ZH_point["data"],"type":"HZ"}
-var YH_point = { "data": 2*QZ_point["data"] - HY_point["data"],"type":"YH"}
+QZ_point = { "data": result[result.length-2]["licheng"]["total"]-X,"type":"QZ"}
+ZY_point = { "data": QZ_point["data"] - R_S*alpha/2,"type":"ZY"}
+ZH_point = { "data": ZY_point["data"] - l_0/2,"type":"ZH"}
+HY_point = { "data": ZY_point["data"] + l_0/2,"type":"HY"}
+YZ_point = { "data": 2*QZ_point["data"] - ZY_point["data"],"type":"YZ"}
+HZ_point = { "data": 2*QZ_point["data"] - ZH_point["data"],"type":"HZ"}
+YH_point = { "data": 2*QZ_point["data"] - HY_point["data"],"type":"YH"}
 
 for(i of [QZ_point,ZY_point,ZH_point,HY_point,YZ_point,HZ_point,YH_point ]){
     i["str"] = licheng_to_str(i["data"])
