@@ -14,6 +14,9 @@
   "dependencies": {
     "art-template": "^4.13.2",
     "body-parser": "^1.19.0",
-    "express-art-template": "^1.0.1"
+    "express-art-template": "^1.0.1",
+    "lay-excel": "^1.7.5",
+    "xlsx": "^0.17.2",
+    "xlsx-style": "^0.8.13"
   }
 }
