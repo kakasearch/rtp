@@ -14,11 +14,12 @@
 var xlsx = XLSX
 var xlsx_style = XLSXX
 var workbook
+var beizhu
 //test
 // const R_S = 500 // input
 // const l_0 = 100 // inpput
 // handle_excel(R_S,l_0,'./test_data.xlsx')
-document.getElementById('input_file').addEventListener('change', function(e) {
+document.getElementById('file').addEventListener('change', function(e) {
     var files = e.target.files;
     if(files.length == 0) return;
     var f = files[0];
@@ -28,34 +29,63 @@ document.getElementById('input_file').addEventListener('change', function(e) {
     }
     var reader = new FileReader();
      reader.onload = function(e) {
-    var data = e.target.result;
-    workbook = xlsx_style.read(data, { type: 'binary', cellStyles: true, cellHTML: true });
-     };
-     reader.readAsBinaryString(f);
-});
-
-document.getElementById('start').addEventListener('click', function(e) {
-
-    const R_S = document.getElementById("R_sj").value//500 // input
-    const l_0 = document.getElementById("l_0").value//100 // inpput
-    if (R_S && l_0) {
-        try{
-            handle_excel(R_S,l_0)
-        }catch(e){
-            alert("未知错误，请检查上传的文档是否与模板一致")
+        var data = e.target.result;
+        workbook = xlsx_style.read(data, { type: 'binary', cellStyles: true, cellHTML: true });
+            //上传完就开是计算
+        const R_S = document.getElementById("R_sj").value//500 // input
+        const l_0 = document.getElementById("l_0").value//100 // inpput
+        if (R_S && l_0) {
+            // try{
+                handle_excel(R_S,l_0)
+                document.querySelector("#export_excel").style.display="block"
+                var htmlstr = xlsx.write(workbook, {sheet:"Sheet1", type:'string', bookType:'html'});
+                document.getElementById('result').innerHTML = htmlstr;
+                document.getElementById('result').innerHTML += `<p>${beizhu}</p>`
+            // }catch(e){
+                // console.log(e)
+                // alert("未知错误，请检查上传的文档是否与模板一致")
+            // }
+        } else {
+            no_rice();
+            //alert("请先输入数据");
         }
-        
-    } else {
-        alert("请先输入数据")
-    }
-    
+     };
+
+     reader.readAsBinaryString(f);
+
+});
+
+document.getElementById('export_excel').addEventListener('click', function(e) {
+    var wbout = xlsx_style.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' })
+    saveAs(new Blob([s2ab(wbout)], { type: "" }), "处理结果.xlsx")
 });
 
 
-function readWorkbookFromLocalFile(file) {
 
- }
-
+function no_rice() {
+      sheetName =  'Sheet1';
+       var aoa = [
+         ['恭喜你获得成就：无米之炊', null, null, null], // 小彩蛋
+      ];
+      var sheet = xlsx.utils.aoa_to_sheet(aoa);
+      sheet['!merges'] = [
+         // 设置A1-C1的单元格合并
+         {s: {r: 0, c: 0}, e: {r: 0, c: 2}}
+      ];
+      var mworkbook = {
+         SheetNames: [sheetName],
+         Sheets: {}
+      };
+      mworkbook.Sheets[sheetName] = sheet;
+      // 生成excel的配置项
+      var wopts = {
+         bookType: 'xlsx', // 要生成的文件类型
+         bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+         type: 'binary'
+      };
+      var wbout = xlsx.write(mworkbook, wopts);
+      saveAs(new Blob([s2ab(wbout)], { type: "" }), '计算结果（仅供参考）.xlsx')
+   }
 
 function s2ab(s) {
     var buf = new ArrayBuffer(s.length);
@@ -65,14 +95,7 @@ function s2ab(s) {
 }
 
 
-var to_html = function to_html(workbook) {
-    HTMLOUT.innerHTML = "";
-    workbook.SheetNames.forEach(function(sheetName) {
-        var htmlstr = X.write(workbook, {sheet:sheetName, type:'string', bookType:'html'});
-        HTMLOUT.innerHTML += htmlstr;
-    });
-    return "";
-};
+
 
 
 function handle_excel(R_S,l_0){
@@ -265,8 +288,8 @@ for (var i = 0; i < result.length; i++) {
     }
 }
 xlsx.utils.sheet_add_aoa(worksheet,mdata , {origin: "F5"});
-var beizhu = `备注：α=${alpha} rad, R_S = ${R_S},L_S = ${(R_S*alpha).toFixed(4)},测量终点到QZ的距离X=${X.toFixed(3)} ,QZ=${QZ_point["str"]} ,l_0=${l_0} ,p=${ (l_0*l_0/24/R_S).toFixed(3)}`
-xlsx.utils.sheet_add_aoa(worksheet,[[beizhu]] , {origin: "A"+(maxrow+1)});
+beizhu = `备注：α=${alpha} rad, R_S = ${R_S},L_S = ${(R_S*alpha).toFixed(4)},测量终点到QZ的距离X=${X.toFixed(3)} ,QZ=${QZ_point["str"]} ,l_0=${l_0} ,p=${ (l_0*l_0/24/R_S).toFixed(3)}`
+// xlsx.utils.sheet_add_aoa(worksheet,[[beizhu]] , {origin: "A"+(maxrow+1)});
 
 ///download node
 // xlsx_style.writeFile(workbook, './处理结果.xlsx', {
@@ -275,6 +298,4 @@ xlsx.utils.sheet_add_aoa(worksheet,[[beizhu]] , {origin: "A"+(maxrow+1)});
 //         type: 'binary',
 //       })
 
-var wbout = xlsx_style.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' })
-saveAs(new Blob([s2ab(wbout)], { type: "" }), "处理结果.xlsx")
 }
