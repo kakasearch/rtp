@@ -1,43 +1,93 @@
-var xlsx = require('xlsx')
-var xlsx_style = require('xlsx-style')
-// import LAY_EXCEL from 'lay-excel';
-// LAY_EXCEL.exportExcel([[1, 2, 3]], '表格导出.xlsx', 'xlsx')
+// var xlsx = require('xlsx')
+// var xlsx_style = require('xlsx-style')
 
-// let workbook = xlsx.readFile('../test.xlsx')
-let workbook = xlsx_style.readFile('../test.xlsx', { type: 'binary', cellStyles: true, cellHTML: true })
-function log(...argument) {
-    // body...
-    console.log(argument.join(" "))
+
+`    
+<script src="https://cdn.jsdelivr.net/npm/xlsx-style@0.8.13/dist/jszip.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-style@0.8.13/dist/cpexcel.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-style@0.8.13/dist/ods.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.js"></script>
+<script src="./xlsx_style.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.16.6/dist/xlsx.js"></script>
+    `
+
+var xlsx = XLSX
+var xlsx_style = XLSXX
+var workbook
+//test
+// const R_S = 500 // input
+// const l_0 = 100 // inpput
+// handle_excel(R_S,l_0,'./test_data.xlsx')
+document.getElementById('input_file').addEventListener('change', function(e) {
+    var files = e.target.files;
+    if(files.length == 0) return;
+    var f = files[0];
+    if(!/\.xlsx$/g.test(f.name)) {
+        alert('仅支持读取xlsx格式！');
+        return;
+    }
+    var reader = new FileReader();
+     reader.onload = function(e) {
+    var data = e.target.result;
+    workbook = xlsx_style.read(data, { type: 'binary', cellStyles: true, cellHTML: true });
+     };
+     reader.readAsBinaryString(f);
+});
+
+document.getElementById('start').addEventListener('click', function(e) {
+
+    const R_S = document.getElementById("R_sj").value//500 // input
+    const l_0 = document.getElementById("l_0").value//100 // inpput
+    if (R_S && l_0) {
+        try{
+            handle_excel(R_S,l_0)
+        }catch(e){
+            alert("未知错误，请检查上传的文档是否与模板一致")
+        }
+        
+    } else {
+        alert("请先输入数据")
+    }
+    
+});
+
+
+function readWorkbookFromLocalFile(file) {
+
+ }
+
+
+function s2ab(s) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
 }
+
+
+var to_html = function to_html(workbook) {
+    HTMLOUT.innerHTML = "";
+    workbook.SheetNames.forEach(function(sheetName) {
+        var htmlstr = X.write(workbook, {sheet:sheetName, type:'string', bookType:'html'});
+        HTMLOUT.innerHTML += htmlstr;
+    });
+    return "";
+};
+
+
+function handle_excel(R_S,l_0){
+//workbook = xlsx_style.readFile(file, { type: 'binary', cellStyles: true, cellHTML: true })
+
 const worksheet = workbook.Sheets["Sheet1"];
 workbook.SheetNames = ["Sheet1"]
 const data = xlsx.utils.sheet_to_json(worksheet)
 const maxrow = parseInt(/:.+?(\d+)/.exec(worksheet["!ref"])[1])
-//worksheet["A1"].s = { font: { sz: 14, bold: true, color: { rgb: "FFFFAA00" } }, fill: { bgColor: { indexed: 64 }, fgColor: { rgb: "FFFF00" } } }
-// console.log(worksheet)
-//F1:T3
-data_style = {
-  numFmt: 'General',
-  font: {
-    sz: '11',
-    color: { rgb: 'FFFFFF' },
-  },
-  border: {
-    left: { style: 'thin', color: {} },
-    right: { style: 'thin', color: {} },
-    top: { style: 'thin', color: {} },
-    bottom: { style: 'thin', color: {} }
-  },
-  alignment: { vertical: 'center', horizontal: 'center' }
-}
 
 for(var c of "FGHIJKLMNOPQRST") {
   for(var r=1; r<= 3; ++r) {
     worksheet[c+r].s = worksheet["C2"].s
   }
 }
-
-
 
 /////////////把数据处理成一行一行的【】
 //第一行不算，最后一行不算
@@ -52,11 +102,10 @@ let re = /(.*?)(\d*?)\+(\d+)/.exec(data[2][""])
         LC_c = parseInt(re[3])
         tmp_LC_b= re[2]
     }else{
-        console.log("error")
+       alert("somthing error!!!")
     }
-// [licheng_str,global_LC_a,tmp_LC_b,LC_c] = /(.*?)(\d*?)\+(\d+)/.exec(data[2][""])
-tmp_LC_b = parseInt(tmp_LC_b)
 
+tmp_LC_b = parseInt(tmp_LC_b)
 start_point = {
     "row":2,
     "isZJD": true,
@@ -71,7 +120,6 @@ start_point = {
 result = [start_point]
 for (var i = 3; i < data.length; i++) {
     let d = data[i]
-    //log(JSON.toString(d))
     //K9+100 a:K b:9 c:100
     let licheng_str
     let LC_c
@@ -83,16 +131,13 @@ for (var i = 3; i < data.length; i++) {
         if (re[2]) {
             LC_b = parseInt(re[2])
             tmp_LC_b = LC_b
-        } else {
-            LC_b = tmp_LC_b
-        }
+        } else  LC_b = tmp_LC_b
+
     }else{
         licheng_str = d[""]
         LC_b = null
         LC_c = null
     }
-
-
     let tmp = {
         "row":i,
         "isZJD": d["既有曲线测量资料"]?true:false,
@@ -108,7 +153,6 @@ for (var i = 3; i < data.length; i++) {
 
     }
     result.push(tmp)
-
 }
 
 ////////////计算β
@@ -118,7 +162,7 @@ global_EJ = 0
 for (var i = 1; i < result.length; i++) {
     d = result[i]
     d["beita_d"]= d["fai"] + global_beita
-    d["beita"] = 3.14159/180* d["beita_d"]/3600
+    d["beita"] = Math.PI/180* d["beita_d"]/3600
     d["J_l"] = d["licheng"]["total"] - global_total
     d["l_beita"] = d["J_l"]* d["beita"]
     d["EJ"]= d["l_beita"] + global_EJ
@@ -134,8 +178,6 @@ function licheng_to_str(argument) {
     return global_LC_a+LC_b+"+"+LC_c
 }
 //计算主点里程
-const R_S = 500 // input
-const l_0 = 100 // inpput
 const alpha = parseFloat((result[result.length-1]["beita"]).toFixed(7))
 const X = result[result.length-2]["EJ"]/alpha
 var QZ_point = { "data": result[result.length-2]["licheng"]["total"]-X,"type":"QZ"}
@@ -198,9 +240,6 @@ for (var i = 1; i < result.length-1; i++) {
 result[result.length-1]["J_l"]  =null
 result[result.length-1]["l_beita"]  =null
 result[result.length-1]["EJ"]   =null
-var beizhu = `α=${alpha} rad, R_S = ${R_S},L_S = ${(R_S*alpha).toFixed(4)}, 
-测量终点到QZ的距离X=${X.toFixed(3)} ,QZ=${QZ_point["str"]} ,l_0=${l_0} ,p=${ (l_0*l_0/24/R_S).toFixed(3)}`
-
 //修改数据 F5:T27
 
 let mdata= []
@@ -222,16 +261,20 @@ for (var i = 0; i < result.length; i++) {
         let l_3 = d["l_3"] ? parseFloat(d["l_3"].toFixed(3)) :null
         let E_S = d["E_S"] ? parseFloat(d["E_S"].toFixed(3)) :null
         let delt = d["delt"] ? parseFloat(d["delt"].toFixed(3)) :null
-        mdata.push([m, f, dd, beita, J_L, l_beita, E_J, point, L_or_X, X_alpha, p, S_l, l_3, E_S, delt])
+        mdata.push([dd, f,m , beita, J_L, l_beita, E_J, point, L_or_X, X_alpha, p, S_l, l_3, E_S, delt])
     }
 }
 xlsx.utils.sheet_add_aoa(worksheet,mdata , {origin: "F5"});
- 
-// /* save to file */
-xlsx_style.writeFile(workbook, './处理结果.xlsx', {
-        bookType: 'xlsx',
-        bookSST: true,
-        type: 'binary',
-      })
-// xlsx_style.writeFile(workbook, '../QQQQQQ.xlsx',{cellStyles: true});
- //xlsx.writeFile(workbook, '../QQQQQQ.xlsx',{cellStyles: true});
+var beizhu = `备注：α=${alpha} rad, R_S = ${R_S},L_S = ${(R_S*alpha).toFixed(4)},测量终点到QZ的距离X=${X.toFixed(3)} ,QZ=${QZ_point["str"]} ,l_0=${l_0} ,p=${ (l_0*l_0/24/R_S).toFixed(3)}`
+xlsx.utils.sheet_add_aoa(worksheet,[[beizhu]] , {origin: "A"+(maxrow+1)});
+
+///download node
+// xlsx_style.writeFile(workbook, './处理结果.xlsx', {
+//         bookType: 'xlsx',
+//         bookSST: true,
+//         type: 'binary',
+//       })
+
+var wbout = xlsx_style.write(workbook, { bookType: 'xlsx', bookSST: false, type: 'binary' })
+saveAs(new Blob([s2ab(wbout)], { type: "" }), "处理结果.xlsx")
+}
