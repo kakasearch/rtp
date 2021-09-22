@@ -33,7 +33,7 @@
 </head>
 <body>
     <h1>欢迎使用本工具</h1>
-    <h6>请下载表格模板，填写数据后上传，后台将为您输出计算结果</h6>
+    <h6>请下载表格模板，填写数据后上传，先上传表格再提交数据，后台将为您输出计算结果</h6>
     <a href="数据输入模板.xlsx" target="_blank">点击下载表格模板</a>
     <form name="既有线拨距计算">
      <!-- 输出设计曲线半径 -->
@@ -46,8 +46,6 @@
      </div>
 	 <input type="file" id="file" style="display:none;" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
      <input type="button" value="加载本地excel文件" onclick="javascript:selectFile()">
-	 <br>
-	 <a href="javascript:selectFile()">加载本地excel文件</a>
      <input type="button" value="提交数据">
     </form>
 	<!-- 显示单元格 -->
@@ -55,6 +53,7 @@
 	<table>
 	</table>	
 	</div>
+	<input type="button" value="导出计算结果excel" onclick="exportSpecialExcel()">
 	<script type="text/javascript" src="jquery.min.js"></script>
 	<script type="text/javascript" src="xlsx.core.min.js"></script>
 	<script type="text/javascript">
@@ -243,17 +242,14 @@
 
 	function exportSpecialExcel() {
 		var aoa = [
-			['主要信息', null, null, '其它信息'], // 特别注意合并的地方后面预留2个null
-			['姓名', '性别', '年龄', '注册时间'],
-			['张三', '男', 18, new Date()],
-			['李四', '女', 22, new Date()]
+			['恭喜你获得成就：无米之炊', null, null, null], // 小彩蛋
 		];
 		var sheet = XLSX.utils.aoa_to_sheet(aoa);
 		sheet['!merges'] = [
 			// 设置A1-C1的单元格合并
 			{s: {r: 0, c: 0}, e: {r: 0, c: 2}}
 		];
-		openDownloadDialog(sheet2blob(sheet), '单元格合并示例.xlsx');
+		openDownloadDialog(sheet2blob(sheet), '计算结果（仅供参考）.xlsx');
 	}
 	</script>
 
