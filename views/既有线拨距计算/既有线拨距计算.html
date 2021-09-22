@@ -53,8 +53,9 @@
         <input type="text" oninput="value=value.replace(/[^\d.]/g,'')" name="l_0"  placeholder="单位为m" id="l_0">
      </div>
     <input type="file" id="file" style="display:none;"  accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-     <input type="button" value="加载本地excel文件" onclick="javascript:document.getElementById('file').click()"> 
+     <input type="button" value="加载本地excel文件" onclick="javascript:sel()"> 
      <a href="数据输入模板.xlsx" target="_blank" >(点击下载表格模板)</a>
+     <input type="button" disabled value="重新计算" id="re_cal" onclick="javascript:start_cal()">
     </form>
  </div>
     <br/>
@@ -70,5 +71,11 @@
 <script src="./xlsx_style.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.16.6/dist/xlsx.js"></script>
   <script src="./handle_EXCEL.js"></script>
+  <script type="text/javascript">
+     function sel(){
+      document.getElementById('file').click()
+      document.querySelector("#re_cal").removeAttribute("disabled")
+     }
+  </script>
 </body>
 </html>

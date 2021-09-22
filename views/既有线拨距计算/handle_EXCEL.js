@@ -38,32 +38,7 @@ document.getElementById('file').addEventListener('change', function(e) {
      reader.onload = function(e) {
         var data = e.target.result;
         workbook = xlsx_style.read(data, { type: 'binary', cellStyles: true, cellHTML: true });
-            //上传完就开是计算
-        const R_S = document.getElementById("R_sj").value//500 // input
-        const l_0 = document.getElementById("l_0").value//100 // inpput
-        if (R_S && l_0) {
-            // try{
-                handle_excel(R_S,l_0)
-                document.querySelector("#export_excel").style.display="block"
-                var htmlstr = xlsx.write(workbook, {sheet:"Sheet1", type:'string', bookType:'html'});
-                document.getElementById('result').innerHTML = htmlstr;
-                document.getElementById('result').innerHTML += `<p>${beizhu}</p>`
-                for (i of "IKO") {
-                    d = document.querySelector("#sjs-"+i+"2")
-                    d.innerHTML = d.getAttribute('v')
-                }
-                if(! ZH_point.loc){
-                    alert("您输入的参数不合适，输出结果错误的可能性很大")
-                }
-
-            // }catch(e){
-                // console.log(e)
-                // alert("未知错误，请检查上传的文档是否与模板一致")
-            // }
-        } else {
-            no_rice();
-            //alert("请先输入数据");
-        }
+        start_cal();
      };
 
      reader.readAsBinaryString(f);
@@ -76,7 +51,33 @@ document.getElementById('export_excel').addEventListener('click', function(e) {
 });
 
 
-
+function start_cal(){
+                //上传完就开是计算
+document.getElementById('result').innerHTML=" "
+var R_S = document.getElementById("R_sj").value//500 // input
+var l_0 = document.getElementById("l_0").value//100 // inpput
+if (R_S && l_0) {
+        
+        handle_excel(R_S,l_0)
+        document.querySelector("#export_excel").style.display="block"
+        var htmlstr = xlsx.write(workbook, {sheet:"Sheet1", type:'string', bookType:'html'});
+        setTimeout(function(){
+            document.getElementById('result').innerHTML = htmlstr;
+            document.getElementById('result').innerHTML += `<p>${beizhu}</p>`
+        for (i of "IKO") {
+            d = document.querySelector("#sjs-"+i+"2")
+            d.innerHTML = d.getAttribute('v')
+        }
+        if(! ZH_point.loc){
+            alert("您输入的参数不合适，输出结果错误的可能性很大")
+        }
+        },300)
+        
+} else {
+    no_rice();
+    alert("请先输入数据");
+}
+}
 function no_rice() {
       sheetName =  'Sheet1';
        var aoa = [
