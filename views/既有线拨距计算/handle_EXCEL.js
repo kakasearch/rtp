@@ -68,7 +68,7 @@ if (R_S && l_0) {
             d = document.querySelector("#sjs-"+i+"2")
             d.innerHTML = d.getAttribute('v')
         }
-        if(! ZH_point.loc){
+        if(! (QZ_point.loc && ZY_point.loc && ZH_point.loc && HY_point.loc && YZ_point.loc && HZ_point.loc && YH_point.loc)){
             alert("您输入的参数不合适，输出结果错误的可能性很大")
         }
         },300)
